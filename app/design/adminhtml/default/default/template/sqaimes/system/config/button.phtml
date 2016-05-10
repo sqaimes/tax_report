@@ -1,0 +1,61 @@
+<?php
+/**
+ * Atwix
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+
+ * @category    Atwix Mod
+ * @package     Atwix_Tweaks
+ * @author      Atwix Core Team
+ * @copyright   Copyright (c) 2012 Atwix (http://www.atwix.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @var $this Atwix_Tweaks_Block_Adminhtml_System_Config_Form_Button
+ */
+?>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    function check() {
+        var el = document.getElementById('atwixtweaks_tools_lindenvalley_order_state');
+        new Ajax.Request('<?php echo $this->getAjaxCheckUrl() ?>?date_from='+document.getElementById("atwixtweaks_tools_lindenvalley_date_from").value+'&date_to='+document.getElementById("atwixtweaks_tools_lindenvalley_date_to").value+'&state='+getSelectValues(el), {
+            method:     'get',
+            onSuccess: function(transport){
+              var el = document.getElementById('atwixtweaks_tools_lindenvalley_order_state');
+
+            if (transport.responseText){
+        document.location.href = 'https://www.puravita.ch/export_rates.php?date_from='+document.getElementById("atwixtweaks_tools_lindenvalley_date_from").value+'&date_to='+document.getElementById("atwixtweaks_tools_lindenvalley_date_to").value+'&state='+getSelectValues(el);
+                                  }
+            }
+        });
+    }
+    function getSelectValues(select) {
+  var result = '';
+  var options = select && select.options;
+  var opt;
+
+  for (var i=0, iLen=options.length; i<iLen; i++) {
+    opt = options[i];
+
+    if (opt.selected) {
+      if (i==1) {result=opt.value || opt.text;} else {
+      result=result+','+(opt.value || opt.text);
+    }
+
+    }
+  }
+  return result;
+}
+
+    //]]>
+</script>
+
+<?php echo $this->getButtonHtml() ?>
